@@ -1,5 +1,6 @@
 #Imports
 import sys
+import os
 
 # Wil return 0 for no command found 1 for initlize shell 2 run shell 3 help
 def ParseCMDArguments() -> int:
@@ -17,8 +18,39 @@ def ParseCMDArguments() -> int:
     else:
         return 0
 
+def InitlizeOsDevelEnv():
+    print("OS env chosen")
+def InitlizeWebDevelEnv():
+    print("web env chosen")
+
 def InitlizeShellInDir():
-    pass
+    def getchoice():
+        choice = input(">")
+        if choice == "1":
+            return 1
+        elif choice == "2":
+            return 2
+        else:
+            return 0
+    
+
+    os.system("clear")
+    print("""
+          \rChoose one of the options:\n\r
+          \t 1. OS Developement environment\n\r
+          \t 2. Website Development evironment\n\r""")
+    choice = getchoice()
+    if choice == 0:
+        print("Not a actual option chosen")
+        choice = getchoice()
+        if choice == 0:
+            print("Not a actual options was chosen exiting..")
+            sys.exit(1)
+    
+    if choice == 1: 
+        InitlizeOsDevelEnv()
+    elif choice == 2:
+        InitlizeWebDevelEnv()
 
 def RunShellInDir():
     pass
