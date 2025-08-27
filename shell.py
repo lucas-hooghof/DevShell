@@ -1,8 +1,37 @@
-#Imports
 import sys
 import os
 
-# Wil return 0 for no command found 1 for initlize shell 2 run shell 3 help
+
+class Shell:
+    def __init__(self):
+        pass  # no env tracking for now
+
+    def initialize(self):
+        os.system("clear")
+        print("""
+              \rChoose one of the options:\n\r
+              \t 1. OS Development environment\n\r
+              \t 2. Website Development environment\n\r""")
+        choice = self._get_choice()
+        
+        if choice == 1:
+            print("OS environment chosen")
+        elif choice == 2:
+            print("Web environment chosen")
+        else:
+            print("Not a valid option chosen. Exiting..")
+            sys.exit(1)
+
+    def _get_choice(self):
+        choice = input(">")
+        if choice == "1":
+            return 1
+        elif choice == "2":
+            return 2
+        else:
+            return 0
+
+
 def ParseCMDArguments() -> int:
     args = sys.argv
     argc = len(args)
@@ -18,62 +47,25 @@ def ParseCMDArguments() -> int:
     else:
         return 0
 
-def InitlizeOsDevelEnv():
-    print("OS env chosen")
-def InitlizeWebDevelEnv():
-    print("web env chosen")
-
-def InitlizeShellInDir():
-    def getchoice():
-        choice = input(">")
-        if choice == "1":
-            return 1
-        elif choice == "2":
-            return 2
-        else:
-            return 0
-    
-
-    os.system("clear")
-    print("""
-          \rChoose one of the options:\n\r
-          \t 1. OS Developement environment\n\r
-          \t 2. Website Development evironment\n\r""")
-    choice = getchoice()
-    if choice == 0:
-        print("Not a actual option chosen")
-        choice = getchoice()
-        if choice == 0:
-            print("Not a actual options was chosen exiting..")
-            sys.exit(1)
-    
-    if choice == 1: 
-        InitlizeOsDevelEnv()
-    elif choice == 2:
-        InitlizeWebDevelEnv()
-
-def RunShellInDir():
-    pass
 
 def main():
+    shell = Shell()
     StartCmd = ParseCMDArguments()
 
     if StartCmd == 0:
-        print(f"No command found!\nrun 'python3 {sys.argv[0]} --help'\nto see all posible commands! ")
+        print(f"No command found!\nrun 'python3 {sys.argv[0]} --help'\nto see all possible commands! ")
     elif StartCmd == 1:
-        InitlizeShellInDir()
+        shell.initialize()
     elif StartCmd == 2:
-        RunShellInDir()
+        print("Run functionality not yet implemented.")
     elif StartCmd == 3:
         print(
             f"All possible commands:\n"
             f"\t- --help  show all possible commands\n"
             f"\t- init    initialize shell in this directory\n"
-            f"\t- run     run the shell that is initilized in this directory"
+            f"\t- run     run the shell that is initialized in this directory"
         )
+
 
 if __name__ == "__main__":
     main()
-
-
-
