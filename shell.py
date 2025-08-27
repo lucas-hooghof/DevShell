@@ -1,13 +1,55 @@
 import sys
 import os
+import zlib
+
+def templib():
+    return zlib.Z_BEST_COMPRESSION
 
 
 class Shell:
     def __init__(self):
-        pass  # no env tracking for now
+        pass
+
+    def clear(self):
+        os.system("clear")
+    def exit(self):
+        sys.exit(1)
+
+
+    def _OsDevEnvGen(self):
+        self.clear()
+        print("OS environment chosen")
+        print("""
+              \rBoot type:\n\r
+              \t 1. Legacy (16-bit x86 x64)\n\r
+              \t 2. UEFI   (Expecting x64)\n\r
+              \t 3. Hybrid (Expecting x64)\n\r""")
+        choice = int(input(">"))
+        if choice == 1:
+            #Legacy ask for arch and asmbler
+            print("Legacy")
+        elif choice == 2:
+            #UEFI ask which compiler
+            print("UEFI")
+        elif choice == 3:
+            #UEFI and BIOS ask which compiler and asmbler
+            print("Hybrid")
+        else:
+            print(f"{choice} unknown choice exiting...")
+            self.exit()
+            
+    def _WebDevEnvGen(self):
+        self.clear()
+        print("Web environment chosen")
+        print("""
+              \rChoose one of the options:\n\r
+              \t 1. Javascript/Typescript\n\r
+              \t 2. Python\n\r
+              \t 3. HTML/CSS/js\n\r""")
+        
 
     def initialize(self):
-        os.system("clear")
+    
         print("""
               \rChoose one of the options:\n\r
               \t 1. OS Development environment\n\r
@@ -15,9 +57,9 @@ class Shell:
         choice = self._get_choice()
         
         if choice == 1:
-            print("OS environment chosen")
+            self._OsDevEnvGen()
         elif choice == 2:
-            print("Web environment chosen")
+            self._WebDevEnvGen()
         else:
             print("Not a valid option chosen. Exiting..")
             sys.exit(1)
