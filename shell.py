@@ -206,7 +206,8 @@ class Shell:
         if choice == 1:
             self._OsDevEnvGen()
             if self.env_data["cross_compilers"] == "y":
-                self.env_data["cross_compilers"] = "y"
+                # make it compile the cross compilers
+                pass
         elif choice == 2:
             self._WebDevEnvGen()
         else:
