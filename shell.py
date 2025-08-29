@@ -204,6 +204,7 @@ class Shell:
         choice = self._get_choice()
         
         if choice == 1:
+            self.env_data["Env"] = "OS"
             self._OsDevEnvGen()
             if self.env_data["cross_compilers"] == "y":
                 # make it compile the cross compilers
@@ -214,13 +215,15 @@ class Shell:
             print("Not a valid option chosen. Exiting..")
             sys.exit(1)
 
+    def GenerateShellTree(self):       
         print("Building Shell....")
         if os.path.exists("./shell"):
             shutil.rmtree("./shell")
         os.mkdir("./shell")
         with open("./shell/conf.bin","wb") as conf:
-            # Maybe later when done conf.write(zlib.compress(self.packos()))
-            conf.write(self.packos())
+            if self.env_data["Env"] =="OS":
+                # Maybe later when done conf.write(zlib.compress(self.packos()))
+                conf.write(self.packos())
 
     def _get_choice(self):
         choice = input(">")
